@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BrandsModule } from './brands/brands.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { BrandsModule } from './brands/brands.module';
       useNewUrlParser: true,
       useUnifiedTopology: true,
       autoLoadEntities: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     BrandsModule,
   ],

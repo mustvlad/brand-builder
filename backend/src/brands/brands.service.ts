@@ -20,29 +20,31 @@ import {
   generateAutobiographyTemplate,
   generateContentPillarsTemplate,
 } from '../utils/prompts';
-
-const modelT1 = new ChatOpenAI({
-  temperature: 1,
-  modelName: 'gpt-4-1106-preview',
-  openAIApiKey: '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',
-  // callbacks: [new ConsoleCallbackHandler()],
-});
-
-const modelT0 = new ChatOpenAI({
-  temperature: 1,
-  modelName: 'gpt-4-1106-preview',
-  openAIApiKey: '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',
-  // callbacks: [new ConsoleCallbackHandler()],
-});
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class BrandsService {
   constructor(
     @InjectRepository(Brand)
     private brandRepository: Repository<Brand>,
+    private configService: ConfigService,
   ) {}
 
   async create(createBrandDto: CreateBrandDto): Promise<Brand> {
+    const modelT1 = new ChatOpenAI({
+      temperature: 1,
+      modelName: 'gpt-4-1106-preview',
+      openAIApiKey: this.configService.get<string>('OPENAI_API_KEY'),
+      // callbacks: [new ConsoleCallbackHandler()],
+    });
+
+    const modelT0 = new ChatOpenAI({
+      temperature: 1,
+      modelName: 'gpt-4-1106-preview',
+      openAIApiKey: this.configService.get<string>('OPENAI_API_KEY'),
+      // callbacks: [new ConsoleCallbackHandler()],
+    });
+
     try {
       /**
        * Step 1: Generate the brand entry
@@ -147,7 +149,7 @@ export class BrandsService {
         how,
       });
 
-      console.log('5/7 -- Brand Statement \u2713')
+      console.log('5/7 -- Brand Statement \u2713');
 
       /**
        * Step 5: Generate autobiography & content pillars

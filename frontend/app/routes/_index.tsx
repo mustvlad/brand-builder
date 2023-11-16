@@ -4,7 +4,7 @@ import {
   type MetaFunction,
   redirect,
 } from "@remix-run/node";
-import { Form, useNavigation } from "@remix-run/react";
+import { Form, Link, useNavigation } from "@remix-run/react";
 import { Switch } from '@headlessui/react';
 import React from "react";
 
@@ -45,22 +45,20 @@ export default function Index() {
   const navigation = useNavigation();
   const [agreed, setAgreed] = React.useState(false);
 
-  console.log("navigation", navigation);
-
   return (
     <div>
       <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
-        <div className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}></div>
+        <div className="relative left-0 -z-10 aspect-[1155/2155] w-[24rem] max-w-none bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-70 sm:aspect-[1155/678] sm:left-[calc(50%-40rem)] sm:w-[80rem]" style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}></div>
       </div>
       
-      <div className="mx-auto max-w-2xl text-center mb-24 pt-24 sm:pt-32">
+      <div className="mx-auto max-w-2xl text-center mb-24 pt-24 sm:pt-32 px-5 sm:px-0">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Brand Builder</h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
-          Aute magna irure deserunt veniam aliqua magna enim voluptate.
+          Pasiune, Poveste, Succes!
         </p>
       </div>
       
-      <div className="mx-auto max-w-xl pb-24 sm:pb-32">
+      <div className="mx-auto max-w-xl pb-24 sm:pb-32 px-5 sm:px-0">
         <Form method="post">
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
@@ -75,7 +73,6 @@ export default function Index() {
                   <div className="mt-2">
                     <input
                       required
-                      defaultValue={"Maria Popescu"}
                       name="fullName"
                       id="fullName"
                       autoComplete="given-name"
@@ -94,7 +91,6 @@ export default function Index() {
                   <div className="mt-2">
                     <input
                       required
-                      defaultValue={"maria.popescu@test.org"}
                       id="email"
                       name="email"
                       autoComplete="email"
@@ -127,13 +123,13 @@ export default function Index() {
                       name="studies"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "UMF Carol Davila - Nutriție și Dietetică"
-                      }
+                      // defaultValue={
+                      //   "UMF Carol Davila - Nutriție și Dietetică"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: UMF Carol Davila - Nutriție și Dietetică sau University of Oxford - BSc in Human Nutrition
                   </p>
                 </div>
               </div>
@@ -152,11 +148,11 @@ export default function Index() {
                       name="specialization"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={"nutriționist - dietetician"}
+                      // defaultValue={"nutriționist - dietetician"}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: nutriționist-dietetician
                   </p>
                 </div>
               </div>
@@ -175,13 +171,13 @@ export default function Index() {
                       name="expertise"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "15 ani de experiență și peste 2000 de pacienți tratați"
-                      }
+                      // defaultValue={
+                      //   "15 ani de experiență și peste 2000 de pacienți tratați"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: 15 ani de experiență clinică, peste 2000 de pacienți tratați, fondator al clinicii X
                   </p>
                 </div>
               </div>
@@ -200,13 +196,13 @@ export default function Index() {
                       name="overspecialization"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "tratamentul obezității și a sindromului metabolic"
-                      }
+                      // defaultValue={
+                      //   "tratamentul obezității și a sindromului metabolic"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: tratamentul obezității și a sindromului metabolic; nutriție oncologică; nutriție pediatrică
                   </p>
                 </div>
               </div>
@@ -225,13 +221,13 @@ export default function Index() {
                       name="certifications"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Certificarea Internațională în Managementul Obezității (IBOC): IBOC oferă certificarea specialiștilor în domeniul obezității, inclusiv nutriționiștilor dieteticieni. Această acreditare indică aptitudini și cunoștințe avansate în gestionarea complexă a problemelor legate de greutate și metabolism, consolidând reputația profesională în tratamentul obezității și a sindromului metabolic."
-                      }
+                      // defaultValue={
+                      //   "Certificarea Internațională în Managementul Obezității (IBOC): IBOC oferă certificarea specialiștilor în domeniul obezității, inclusiv nutriționiștilor dieteticieni. Această acreditare indică aptitudini și cunoștințe avansate în gestionarea complexă a problemelor legate de greutate și metabolism, consolidând reputația profesională în tratamentul obezității și a sindromului metabolic."
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: Certificarea Internațională în Managementul Obezității (IBOC)
                   </p>
                 </div>
               </div>
@@ -259,13 +255,13 @@ export default function Index() {
                       name="teachingSkills"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Profesor universitar la UMF Cluj, Departamentul de Medicină Comunitară"
-                      }
+                      // defaultValue={
+                      //   "Profesor universitar la UMF Cluj, Departamentul de Medicină Comunitară"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: Profesor universitar; lector univ; trainer
                   </p>
                 </div>
               </div>
@@ -284,13 +280,13 @@ export default function Index() {
                       name="tehnologicalSkills"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Fondator al aplicației MyWeightTrack care are peste 100.000 de user activi/lună"
-                      }
+                      // defaultValue={
+                      //   "Fondator al aplicației MyWeightTrack care are peste 100.000 de user activi/lună"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: fondator al unei aplicații de nutriție; susține cursuri online; consultații prin telemedicină
                   </p>
                 </div>
               </div>
@@ -309,11 +305,11 @@ export default function Index() {
                       name="researchSkills"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={`Autoarea tezei de doctorat "Integrarea Inteligenței Artificiale în Identificarea Factorilor de Risc și Intervenții pentru Combaterea Obezității și Sindromului Metabolic"`}
+                      // defaultValue={`Autoarea tezei de doctorat "Integrarea Inteligenței Artificiale în Identificarea Factorilor de Risc și Intervenții pentru Combaterea Obezității și Sindromului Metabolic"`}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: titluri de lucrări științifice publicate
                   </p>
                 </div>
               </div>
@@ -332,13 +328,13 @@ export default function Index() {
                       name="publicSpeakingSkills"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Ted speaker (Romania, 2022): ted talk-ul a fost despre descoperirile mele din domeniul nutriției și sănătății si succesul aplicatia pe care am lansat-o"
-                      }
+                      // defaultValue={
+                      //   "Ted speaker (Romania, 2022): ted talk-ul a fost despre descoperirile mele din domeniul nutriției și sănătății si succesul aplicatia pe care am lansat-o"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: speaker la conferințe; invitat în podcasturi; live-uri pe social media
                   </p>
                 </div>
               </div>
@@ -357,11 +353,11 @@ export default function Index() {
                       name="mentorSkills"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={""}
+                      // defaultValue={""}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: nume de cursuri pe care le susții de formare profesională/ cursuri pentru publicul larg etc
                   </p>
                 </div>
               </div>
@@ -380,13 +376,13 @@ export default function Index() {
                       name="leadershipSkills"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Președintă a Asociației pentru sprijinirea pacienților cu obezitate (2018 - prezent)"
-                      }
+                      // defaultValue={
+                      //   "Președintă a Asociației pentru sprijinirea pacienților cu obezitate (2018 - prezent)"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: membru fondator al unei asociații, comunitate mare în online, președinte al unei societăți etc
                   </p>
                 </div>
               </div>
@@ -414,11 +410,11 @@ export default function Index() {
                       name="communityInvolvement"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={`Unul dintre inițiatorii programului național de fitness comunitar "Miscă-te pentru sănătate" - o campanie de Strângere de Fonduri care își propune să doteze câte un parc din fiecare oraș din țară cu aparate gratuite de fitnesss; crearea de spații de antrenament accesibile și programe de exerciții pentru toți membrii comunității.`}
+                      // defaultValue={`Unul dintre inițiatorii programului național de fitness comunitar "Miscă-te pentru sănătate" - o campanie de Strângere de Fonduri care își propune să doteze câte un parc din fiecare oraș din țară cu aparate gratuite de fitnesss; crearea de spații de antrenament accesibile și programe de exerciții pentru toți membrii comunității.`}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: 2-3 exemple de campanii de CSR, fundraising, charity în nutriție în care te-ai implicat
                   </p>
                 </div>
               </div>
@@ -437,13 +433,13 @@ export default function Index() {
                       name="characterTraits"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Curajoasa; Conectata la problemele nutriționale din comunitate"
-                      }
+                      // defaultValue={
+                      //   "Curajoasa; Conectata la problemele nutriționale din comunitate"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: 2-3 adjective prin care te descriu pacienții/ colegii de breaslă, ex: curajos, ambițios etc
                   </p>
                 </div>
               </div>
@@ -462,13 +458,13 @@ export default function Index() {
                       name="patientInteractionStyle"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Foarte aplicat și pus pe acțiune; disponibil pe whatsapp / email oricând e nevoie"
-                      }
+                      // defaultValue={
+                      //   "Foarte aplicat și pus pe acțiune; disponibil pe whatsapp / email oricând e nevoie"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: Empatic și înțelegător.​ Adaptabil la diferite tipuri de pacienți?​
                   </p>
                 </div>
               </div>
@@ -487,13 +483,13 @@ export default function Index() {
                       name="addedValue"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Gestionarea sănătoasă a greutății; susținere psihologică pentru pacienții care se confruntă cu tulburări de alimentație precum mânncatul compulsiv; Controlul bolilor metabolice cum ar fi diabetul sau sindromul metabolic"
-                      }
+                      // defaultValue={
+                      //   "Gestionarea sănătoasă a greutății; susținere psihologică pentru pacienții care se confruntă cu tulburări de alimentație precum mânncatul compulsiv; Controlul bolilor metabolice cum ar fi diabetul sau sindromul metabolic"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: Gestionarea sănătoasă a greutății; Controlul bolilor metabolice cum ar fi diabetul etc
                   </p>
                 </div>
               </div>
@@ -512,13 +508,13 @@ export default function Index() {
                       name="personalInsights"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "tatal care a avut diabet toata viata; de fiecare data cand luam masa in familie, el avea meniu separat si se chinuia foarte tare"
-                      }
+                      // defaultValue={
+                      //   "tatal care a avut diabet toata viata; de fiecare data cand luam masa in familie, el avea meniu separat si se chinuia foarte tare"
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: cea mai mare nevoie / dorință a clienților tăi. Ex: rețete rapide și sănătoase pentru slăbit
                   </p>
                 </div>
               </div>
@@ -546,13 +542,13 @@ export default function Index() {
                       name="personalReasons"
                       rows={3}
                       className="outline-none block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={
-                        "Ca sa-i faca pe cei supraponderali sa ajunga la o greutate care sa-i ajute sa se simte bine in pielea lor."
-                      }
+                      // defaultValue={
+                      //   "Ca sa-i faca pe cei supraponderali sa ajunga la o greutate care sa-i ajute sa se simte bine in pielea lor."
+                      // }
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
-                    Write a few sentences about yourself.
+                    Ex: Să îi ajut pe oameni să se mențină sănătoși printr-o nutriție corectă
                   </p>
                 </div>
               </div>
@@ -580,7 +576,7 @@ export default function Index() {
               </Switch>
             </div>
             <Switch.Label className="text-sm leading-6 text-gray-600">
-              By selecting this, you agree to our <a href="https://google.com" className="font-semibold text-indigo-600">privacy&nbsp;policy</a>.
+              Prin selectarea acestei opțiuni, sunteți de acord cu <Link to="/gdpr" className="font-semibold text-indigo-600">politica noastră de confidențialitate</Link>.
             </Switch.Label>
           </Switch.Group>
 
