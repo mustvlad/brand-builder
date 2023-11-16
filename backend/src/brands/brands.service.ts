@@ -3,11 +3,12 @@ import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brand } from './entities/brand.entity';
-import { Repository, ObjectId } from 'typeorm';
 import { ChatPromptTemplate } from 'langchain/prompts';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { RunnableMap, RunnableSequence } from 'langchain/schema/runnable';
 import { StringOutputParser } from 'langchain/schema/output_parser';
+import { Repository } from 'typeorm';
+import { ObjectId } from 'mongodb';
 
 import {
   systemTemplate,
@@ -23,14 +24,14 @@ import {
 const modelT1 = new ChatOpenAI({
   temperature: 1,
   modelName: 'gpt-4-1106-preview',
-  openAIApiKey: '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',
+  openAIApiKey: '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',
   // callbacks: [new ConsoleCallbackHandler()],
 });
 
 const modelT0 = new ChatOpenAI({
   temperature: 1,
   modelName: 'gpt-4-1106-preview',
-  openAIApiKey: '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',
+  openAIApiKey: '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',
   // callbacks: [new ConsoleCallbackHandler()],
 });
 
@@ -58,6 +59,8 @@ export class BrandsService {
       }
 
       delete createBrandDto.email;
+
+      console.log('--- Starting the brand creation process ---');
 
       /**
        * Step 3: Get the distinctive elements, why and what
@@ -103,9 +106,9 @@ export class BrandsService {
         ...createBrandDto,
       });
 
-      console.log('\nDistinctive Elements ::', distinctiveElements);
-      console.log('\nWhy ::', why);
-      console.log('\nWhat ::', what);
+      console.log('1/7 -- Distinctive Elements \u2713');
+      console.log('2/7 -- Why \u2713');
+      console.log('3/7 -- What \u2713');
 
       /**
        * Step 4: Get the how and brand statement
@@ -126,6 +129,8 @@ export class BrandsService {
         distinctiveElements,
       });
 
+      console.log('4/7 -- How \u2713');
+
       const getBrandStatementPrompt = ChatPromptTemplate.fromMessages([
         ['system', systemTemplate],
         ['human', getBrandStatementTemplate],
@@ -142,8 +147,7 @@ export class BrandsService {
         how,
       });
 
-      console.log('\n\nHow ::', how);
-      console.log('\n\nBrand statement ::', brandStatement);
+      console.log('5/7 -- Brand Statement \u2713')
 
       /**
        * Step 5: Generate autobiography & content pillars
@@ -182,8 +186,8 @@ export class BrandsService {
         distinctiveElements,
       });
 
-      console.log('\n\nAutobiography ::', autobiography);
-      console.log('\n\nContent pillars ::', contentPillars);
+      console.log('6/7 -- Autobiography \u2713');
+      console.log('7/7 -- Content Pillars \u2713');
 
       /**
        * Step 6: Update the brand entry
@@ -197,6 +201,8 @@ export class BrandsService {
       brandEntry.contentPillars = contentPillars;
 
       await this.brandRepository.save(brandEntry);
+
+      console.log('--- Brand creation process completed ---');
 
       return brandEntry;
     } catch (error) {
@@ -212,12 +218,12 @@ export class BrandsService {
     return this.brandRepository.findOne({ where: { _id: new ObjectId(id) } });
   }
 
-  update(id: number, updateBrandDto: UpdateBrandDto) {
+  update(id: string, updateBrandDto: UpdateBrandDto) {
     console.log(updateBrandDto);
     return `This action updates a #${id} brand`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} brand`;
   }
 }

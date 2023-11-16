@@ -2,55 +2,50 @@ import {
   json,
   type ActionFunctionArgs,
   type MetaFunction,
+  redirect,
 } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
-import { ChatPromptTemplate } from "langchain/prompts";
-import { ChatOpenAI } from "langchain/chat_models/openai";
-import { RunnableMap, RunnableSequence } from "langchain/schema/runnable";
-import { StringOutputParser } from "langchain/schema/output_parser";
-// import { ConsoleCallbackHandler } from "langchain/callbacks";
+import { Form, useNavigation } from "@remix-run/react";
 import { Switch } from '@headlessui/react';
 import React from "react";
 
-import {
-  systemTemplate,
-  getDistinctiveElementsTemplate,
-  getHowTemplate,
-  getBrandStatementTemplate,
-  getWhyTemplate,
-  getWhatTemplate,
-  generateAutobiographyTemplate,
-  generateContentPillarsTemplate,
-} from "../prompts";
-
-const modelT1 = new ChatOpenAI({
-  temperature: 1,
-  modelName: "gpt-4-1106-preview",
-  openAIApiKey: "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",
-  // callbacks: [new ConsoleCallbackHandler()],
-});
-
-const modelT0 = new ChatOpenAI({
-  temperature: 1,
-  modelName: "gpt-4-1106-preview",
-  openAIApiKey: "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",
-  // callbacks: [new ConsoleCallbackHandler()],
-});
-
-function classNames(...classes: any[]) {
+const classNames = (...classes: any[]) => {
   return classes.filter(Boolean).join(' ')
 }
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Brand Builder" },
-    { name: "description", content: "Welcome to MPR Brand Builder!" },
-  ];
-};
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const userInput = Object.fromEntries(formData);
+
+  try {
+    const apiUrl = "http://localhost:8888/brands";
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Authorization: `Bearer ${process.env.API_TOKEN}`,
+      },
+      body: JSON.stringify(userInput),
+      redirect: 'follow'
+    });
+
+    const brandEntry = await res.json();
+
+    if (!brandEntry) {
+      throw new Error("Could not create brand entry");
+    }
+
+    return redirect(`/brands/${brandEntry._id}`);
+  } catch (error) {
+    console.log("error", error);
+    return json({ ok: false, error });
+  }
+}
 
 export default function Index() {
-  const actionData: any = useActionData();
+  const navigation = useNavigation();
   const [agreed, setAgreed] = React.useState(false);
+
+  console.log("navigation", navigation);
 
   return (
     <div>
@@ -66,43 +61,6 @@ export default function Index() {
       </div>
       
       <div className="mx-auto max-w-xl pb-24 sm:pb-32">
-        {actionData?.autobiography && (
-          <div className="mt-10 mb-12 border-b border-gray-900/10 pb-12">
-            <div className="px-4 sm:px-0">
-              <h3 className="text-base font-semibold leading-7 text-gray-900">
-                Rezultate
-              </h3>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-                Mai jos ai rezultatele obtinute
-              </p>
-            </div>
-            <div className="mt-6 border-t border-gray-100">
-              <dl className="divide-y divide-gray-100">
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">
-                    Autobiografie
-                  </dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 whitespace-pre-wrap">
-                    {actionData.autobiography}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-            <div className="mt-6 border-t border-gray-100">
-              <dl className="divide-y divide-gray-100">
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">
-                    Piloni de continut
-                  </dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 whitespace-pre-wrap">
-                    {actionData.contentPillars}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        )}
-
         <Form method="post">
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
@@ -627,12 +585,34 @@ export default function Index() {
           </Switch.Group>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="submit"
-              className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Genereaza
-            </button>
+            {navigation.state !== "submitting" ? (
+              <button
+                type="submit"
+                className={classNames(
+                  agreed ? 'bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600' : 'bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600',
+                  "block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                )}
+                disabled={!agreed}
+              >
+                Genereaza
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className={classNames(
+                  agreed ? 'bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600' : 'bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600',
+                  "block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+                  "inline-flex cursor-not-allowed justify-center"
+                )}
+                disabled={!agreed}
+              >
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Se genereaza...
+              </button>
+            )}
           </div>
         </Form>
       </div>
@@ -640,154 +620,9 @@ export default function Index() {
   );
 }
 
-export async function action({ request }: ActionFunctionArgs) {
-  /**
-   * Step 1: Get the data from the request
-   */
-  const formData = await request.formData();
-  const userInput = Object.fromEntries(formData);
-  const email = userInput.email;
-
-  console.log(userInput);
-  console.log("Generating for :: ", email);
-
-  /**
-   * Step 2: Format the data for prompt template
-   */
-  for (const [key, value] of Object.entries(userInput)) {
-    if (value === "") {
-      userInput[key] = "N/A";
-    }
-  }
-
-  delete userInput.email;
-
-  try {
-    /**
-     * Step 3: Get the distinctive elements, why and what
-     */
-    const getDistinctiveElementsPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", getDistinctiveElementsTemplate],
-    ]);
-
-    const distinctiveElementsChain = RunnableSequence.from([
-      getDistinctiveElementsPrompt,
-      modelT1,
-      new StringOutputParser(),
-    ]);
-
-    const getWhyPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", getWhyTemplate],
-    ]);
-
-    const whyChain = RunnableSequence.from([
-      getWhyPrompt,
-      modelT1,
-      new StringOutputParser(),
-    ]);
-
-    const getWhatPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", getWhatTemplate],
-    ]);
-
-    const whatChain = RunnableSequence.from([
-      getWhatPrompt,
-      modelT1,
-      new StringOutputParser(),
-    ]);
-
-    const { distinctiveElements, why, what } = await RunnableMap.from({
-      distinctiveElements: distinctiveElementsChain,
-      why: whyChain,
-      what: whatChain,
-    }).invoke({
-      ...userInput,
-    });
-
-    console.log("\nDistinctive Elements ::", distinctiveElements);
-    console.log("\nWhy ::", why);
-    console.log("\nWhat ::", what);
-
-    /**
-     * Step 4: Get the how and brand statement
-     */
-    const getHowPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", getHowTemplate],
-    ]);
-
-    const howChain = RunnableSequence.from([
-      getHowPrompt,
-      modelT1,
-      new StringOutputParser(),
-    ]);
-
-    const how = await howChain.invoke({
-      fullName: userInput.fullName,
-      distinctiveElements,
-    });
-
-    const getBrandStatementPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", getBrandStatementTemplate],
-    ]);
-
-    const brandStatementChain = RunnableSequence.from([
-      getBrandStatementPrompt,
-      modelT1,
-      new StringOutputParser(),
-    ]);
-
-    const brandStatement = await brandStatementChain.invoke({
-      fullName: userInput.fullName,
-      how,
-    });
-
-    console.log("\n\nHow ::", how);
-    console.log("\n\nBrand statement ::", brandStatement);
-
-    /**
-     * Step 5: Generate autobiography & content pillars
-     */
-    const generateAutobiographyPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", generateAutobiographyTemplate],
-    ]);
-
-    const autobiographyChain = RunnableSequence.from([
-      generateAutobiographyPrompt,
-      modelT0,
-      new StringOutputParser(),
-    ]);
-
-    const generateContentPillarsPrompt = ChatPromptTemplate.fromMessages([
-      ["system", systemTemplate],
-      ["human", generateContentPillarsTemplate],
-    ]);
-
-    const contentPillarsChain = RunnableSequence.from([
-      generateContentPillarsPrompt,
-      modelT1,
-      new StringOutputParser(),
-    ]);
-
-    const { autobiography, contentPillars } = await RunnableMap.from({
-      autobiography: autobiographyChain,
-      contentPillars: contentPillarsChain,
-    }).invoke({
-      fullName: userInput.fullName,
-      why,
-      what,
-      how,
-      brandStatement,
-      distinctiveElements,
-    });
-
-    return json({ ok: true, autobiography, contentPillars });
-  } catch (error) {
-    return json({ ok: false, error });
-  }
-}
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Brand Builder" },
+    { name: "description", content: "Welcome to MPR Brand Builder!" },
+  ];
+};
