@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  # api:
+  #   build:
+  #     context: ./path-to-nestjs
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mongo
+
+  # frontend:
+  #   build:
+  #     context: ./path-to-remix
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
