@@ -1,4 +1,0 @@
-- pastreaza o atitudine si un tone of voice profesionist
-- nu folosi cuvinte prea pompoase
-- nu scrie beletristica
-- less verbose
