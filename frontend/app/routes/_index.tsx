@@ -22,7 +22,6 @@ export async function action({ request }: ActionFunctionArgs) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${process.env.API_TOKEN}`,
       },
       body: JSON.stringify(userInput),
       redirect: 'follow'

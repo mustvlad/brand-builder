@@ -15,7 +15,7 @@ export const loader = async ({
   const res = await fetch(apiUrl, {
     method: 'GET',
     headers: {
-      // Authorization: `Bearer ${process.env.API_TOKEN}`,
+      'Content-Type': 'application/json',
     },
     redirect: 'follow'
   });
@@ -23,7 +23,10 @@ export const loader = async ({
   const brandEntry = await res.json();
   
   if (!brandEntry) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Response(null, {
+      status: 404,
+      statusText: "Not Found",
+    });
   }
   
   return json( brandEntry );
