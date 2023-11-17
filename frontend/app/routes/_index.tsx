@@ -71,6 +71,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <input
+                      disabled={navigation.state === "submitting"}
                       required
                       name="fullName"
                       id="fullName"
@@ -89,6 +90,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <input
+                      disabled={navigation.state === "submitting"}
                       required
                       id="email"
                       name="email"
@@ -119,6 +121,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="studies"
                       name="studies"
                       rows={3}
@@ -144,6 +147,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="specialization"
                       name="specialization"
                       rows={3}
@@ -167,6 +171,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="expertise"
                       name="expertise"
                       rows={3}
@@ -192,6 +197,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="overspecialization"
                       name="overspecialization"
                       rows={3}
@@ -217,6 +223,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="certifications"
                       name="certifications"
                       rows={3}
@@ -251,6 +258,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="teachingSkills"
                       name="teachingSkills"
                       rows={3}
@@ -276,6 +284,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="tehnologicalSkills"
                       name="tehnologicalSkills"
                       rows={3}
@@ -301,6 +310,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="researchSkills"
                       name="researchSkills"
                       rows={3}
@@ -324,6 +334,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="publicSpeakingSkills"
                       name="publicSpeakingSkills"
                       rows={3}
@@ -349,6 +360,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="mentorSkills"
                       name="mentorSkills"
                       rows={3}
@@ -372,6 +384,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="leadershipSkills"
                       name="leadershipSkills"
                       rows={3}
@@ -406,6 +419,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="communityInvolvement"
                       name="communityInvolvement"
                       rows={3}
@@ -429,6 +443,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="characterTraits"
                       name="characterTraits"
                       rows={3}
@@ -454,6 +469,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="patientInteractionStyle"
                       name="patientInteractionStyle"
                       rows={3}
@@ -479,6 +495,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="addedValue"
                       name="addedValue"
                       rows={3}
@@ -504,6 +521,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="personalInsights"
                       name="personalInsights"
                       rows={3}
@@ -538,6 +556,7 @@ export default function Index() {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      disabled={navigation.state === "submitting"}
                       id="personalReasons"
                       name="personalReasons"
                       rows={3}
