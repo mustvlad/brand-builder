@@ -35,14 +35,12 @@ export class BrandsService {
       temperature: 1,
       modelName: 'gpt-4-1106-preview',
       openAIApiKey: this.configService.get<string>('OPENAI_API_KEY'),
-      // callbacks: [new ConsoleCallbackHandler()],
     });
 
     const modelT0 = new ChatOpenAI({
       temperature: 1,
       modelName: 'gpt-4-1106-preview',
       openAIApiKey: this.configService.get<string>('OPENAI_API_KEY'),
-      // callbacks: [new ConsoleCallbackHandler()],
     });
 
     try {

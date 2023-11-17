@@ -3,23 +3,26 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BrandsModule } from './brands/brands.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      host: 'localhost',
-      port: 27017,
-      database: 'brands-dev',
-      entities: [], // Add your entities here
-      synchronize: true, // Set to false in production
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      autoLoadEntities: true,
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mongodb',
+        host: configService.get<string>('DATABASE_HOST'),
+        port: +configService.get<number>('DATABASE_PORT'),
+        database: configService.get<string>('DATABASE_NAME'),
+        entities: [],
+        synchronize: configService.get<boolean>('DATABASE_SYNCHRONIZE'),
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        autoLoadEntities: true,
+      }),
     }),
     BrandsModule,
   ],
