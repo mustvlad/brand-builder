@@ -29,7 +29,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
     const brandEntry = await res.json();
 
-    if (!brandEntry) {
+    if (!brandEntry || !brandEntry._id) {
       throw new Error("Could not create brand entry");
     }
 
