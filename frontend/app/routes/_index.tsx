@@ -17,7 +17,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const userInput = Object.fromEntries(formData);
 
   try {
-    const apiUrl = "http://localhost:8888/brands";
+    const apiUrl = "http://api:8888/brands";
     const res = await fetch(apiUrl, {
       method: 'POST',
       headers: {

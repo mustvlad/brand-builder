@@ -11,7 +11,7 @@ export const loader = async ({
 }: LoaderFunctionArgs) => {
   invariant(params.brandId, "Missing brandId param");
 
-  const apiUrl = "http://localhost:8888/brands/" + params.brandId;
+  const apiUrl = "http://api:8888/brands/" + params.brandId;
   const res = await fetch(apiUrl, {
     method: 'GET',
     headers: {
