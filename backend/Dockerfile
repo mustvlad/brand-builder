@@ -10,6 +10,9 @@ COPY --chown=node:node package*.json ./
 
 RUN npm ci
 
+# Copy .env file for local development
+COPY --chown=node:node .env .env
+
 COPY --chown=node:node . .
 
 USER node
@@ -44,5 +47,8 @@ FROM node:18-alpine AS production
 
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
+
+# Copy .env file for production
+COPY --chown=node:node --from=build /usr/src/app/.env .env
 
 CMD [ "node", "dist/main.js" ]
