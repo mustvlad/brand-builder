@@ -245,7 +245,7 @@ export default function Index() {
                 Abilitati
               </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
-                Abilitatile pe care le ai dezvoltat de-a lungul timpului.
+                Abilitatile pe care le-ai dezvoltat de-a lungul timpului.
               </p>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
